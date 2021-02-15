@@ -33,7 +33,7 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Comedores</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Alcobas</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Login</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#session">Login</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Registrarse</a></li>                    </ul>
                 </div>
             </div>
@@ -81,7 +81,7 @@
               </div>
             </div>
           </section>
-        
+
           <section>
             <div class="container">
               <div class="row align-items-center">
@@ -99,7 +99,7 @@
               </div>
             </div>
           </section>
-        
+
           <section>
             <div class="container">
               <div class="row align-items-center">
@@ -120,6 +120,27 @@
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">
+                <div class="contenedor">
+                    <h3>Iniciar sesión</h3><br>
+                    <div class="iniciarsesion">
+
+                        <form action="http://localhost/amoblando/crudservicios/api.php?apicall=loginusuario" method="POST">
+
+                            Ingrese su Correo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="email" name="Correo"><br><br>
+                            Ingrese su Contraseña:
+                            <input type="password" name="Contrasena"><br><br>
+
+                            <input type="submit" value="Enviar" class="guardar">
+                            <input type="button" value="Cancelar" class="guardar" /> <br><br>
+
+                            <a href="reestablecercontraseña.php"> ¿Olvido su Contraseña?</a>
+                            &nbsp;&nbsp;<a href="registrarse.html"> Registrarte.</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
                 <!-- About Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
                 <!-- Icon Divider-->
