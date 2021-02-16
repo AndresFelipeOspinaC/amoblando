@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Amoblando</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <div class="logo">
+                    <img src="IMG/LOGO/logo-amoblando.svg" width="80%">
+                </div>
+                <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"class="segundo" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Inicio</a></li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Salas</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="portfolio-1-col.html">SOFÁ CAMA</a>
+                                <a class="dropdown-item" href="portfolio-2-col.html">SOFÁ</a>
+                                <a class="dropdown-item" href="portfolio-3-col.html"> SOFÁ L</a>
+                                </div>
+                        </li> 
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comedores</a>
+                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                 <a class="dropdown-item" href="portfolio-1-col.html">JUEGO DE COMEDORES</a>
+                                 <a class="dropdown-item" href="portfolio-2-col.html">MESAS SILLAS</a>
+                                 <a class="dropdown-item" href="portfolio-3-col.html"> BIFFES</a>
+                               </div>
+                        </li> 
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alcobas</a>
+                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                 <a class="dropdown-item" href="portfolio-1-col.html">CAMAS</a>
+                               </div>
+                        </li> 
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Login</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Registrarse</a></li> 
+                 
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </br></br></br></br></br>
+
+
+    <div class="container mt-6">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('aprendices.store') }}" method="post">
+                            <div class="form-group">
+                                <label for="">Numero de documento</label>
+                                <input type="text" name="document" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nombres</label>
+                                <input type="text" name="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Apellidos</label>
+                                <input name="lastname" id="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Rol</label>
+                                <select name="id_roll" class="form-control" >
+                                    <option value=""> --- Selecione su genero ---</option>
+                                    <option>Empleado</option>
+                                    <option>Cliente</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Genero</label>
+                                <select name="gender" class="form-control" >
+                                    <option value=""> --- Selecione su genero ---</option>
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Correo</label>
+                                <input type="email" name="correo" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Telefono</label>
+                                <input type="text" name="phone" id="phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Direccion</label>
+                                <input name="address" id="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tipo de documento</label>
+                                    <select name="tipo_documento" class="form-control" >
+                                        <option value=""> --- Tipo de documento ---</option>
+                                        <option>cedula de ciudadania</option>
+                                        <option>tarjeta de identidad</option>
+                                        <option>cedula de extranjeria</option>
+                                        <option>Pasaporte</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Contraseña</label>
+                                    <input name="password" id="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Confirmar Contraseña</label>
+                                    <input name="confirm_password" id="" class="form-control">
+                                </div>
+
+                            <hr>
+                            <button type="submit" class="btn btn-primary"> Guardar</button>
+                            <a href="index.html">  Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+          <!-- Bootstrap core JS-->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- Third party plugin JS-->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+          <!-- Contact form JS-->
+          <script src="assets/mail/jqBootstrapValidation.js"></script>
+          <script src="assets/mail/contact_me.js"></script>
+          <!-- Core theme JS-->
+          <script src="js/scripts.js"></script>
+      </body>
+  </html>
