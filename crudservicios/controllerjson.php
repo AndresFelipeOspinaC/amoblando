@@ -21,65 +21,52 @@ class Controllerjson{
         return $respuesta;
     }
 
-    public function readUsuarioController($Correo){
-        $respuesta = Datos::readUsuarioModel($Correo,"usuario");
+    public function readUsuarioController($email){
+        $respuesta = Datos::readUsuarioModel($email,"usuario");
         return $respuesta;
     }
 
-    public function updateUsuariosController($ID_Tipo_Documento,$ID_Usuario,$Primer_Nombre,$Segundo_Nombre,
-    $Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$Correo,$Contrasena,
-    $confirmar_Contrasena,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
+    public function updateUsuariosController($document_type,$document,$Primer_Nombre,$Segundo_Nombre,
+    $Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$email,$password,
+    $confirmar_password,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
     {
-    $datosController = array("ID_Tipo_Documento" => $ID_Tipo_Documento,"ID_Usuario"=>$ID_Usuario,
+    $datosController = array("document_type" => $document_type,"document"=>$document,
     "Primer_Nombre"=>$Primer_Nombre,"Segundo_Nombre" =>$Segundo_Nombre,
     "Primer_Apellido" =>$Primer_Apellido,"Segundo_Apellido"=>$Segundo_Apellido,
-    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"Correo"=>$Correo,
-    "Contrasena" =>$Contrasena,"confirmar_Contrasena"=>$confirmar_Contrasena,"ID_Genero"=>$ID_Genero,
+    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"email"=>$email,
+    "password" =>$password,"confirmar_password"=>$confirmar_password,"ID_Genero"=>$ID_Genero,
     "ID_Ciudad" =>$ID_Ciudad,"direccion" =>$direccion,"observaciones"=>$observaciones);
     $respuesta= Datos::updateUsuarioModel($datosController,"usuario");
     return $respuesta;
     }
 
-   public function updateUsuarioAdminiController($ID_Usuario,$Primer_Nombre,$Segundo_Nombre,$Primer_Apellido,
-   $Segundo_Apellido,$fecha_nacimiento,$Telefono,$Correo,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
+   public function updateUsuarioAdminiController($document,$Primer_Nombre,$Segundo_Nombre,$Primer_Apellido,
+   $Segundo_Apellido,$fecha_nacimiento,$Telefono,$email,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
    {
 
-    $datosController = array("ID_Usuario"=>$ID_Usuario,
+    $datosController = array("document"=>$document,
     "Primer_Nombre"=>$Primer_Nombre,"Segundo_Nombre" =>$Segundo_Nombre,
     "Primer_Apellido" =>$Primer_Apellido,"Segundo_Apellido"=>$Segundo_Apellido,
-    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"Correo"=>$Correo,
+    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"email"=>$email,
     "ID_Genero"=>$ID_Genero,"ID_Ciudad" =>$ID_Ciudad,"direccion" =>$direccion,"observaciones"=>$observaciones);
     $respuesta= Datos::updateUsuarioAdminModel($datosController,"usuario");
     return $respuesta;
 
-
-
-
    }
-
-
-
-
-
-
-    public function deleteUsuarioController($ID_Usuario,$ID_Tipo_Documento){
-        $respuesta = Datos::deleteUsuarioModel($ID_Usuario,$ID_Tipo_Documento, "usuario");
+    public function deleteUsuarioController($document,$document_type){
+        $respuesta = Datos::deleteUsuarioModel($document,$document_type, "usuario");
         return $respuesta;
     }
-
-    public function loginUsuarioController($Correo, $Contrasena){
-        $datosController = array("Correo"=>$Correo, "Contrasena"=>$Contrasena);
+    public function loginUsuarioController($email, $password){
+        $datosController = array("email"=>$email, "password"=>$password);
         $respuesta = Datos::loginUsuarioModel($datosController, "usuario");
         return $respuesta;
     }
-
-    public function mostrarcontrasenaController($Correo,$ID_Usuario){
-        $respuesta = Datos::mostrarcontrasenaModel($Correo,$ID_Usuario,"usuario");
+    public function mostrarcontrasenaController($email,$document){
+        $respuesta = Datos::mostrarcontrasenaModel($email,$document,"usuario");
 
         return $respuesta;
-
     }
-
 
     public function createProductoController($ID_Producto,$Nombre_Producto,$destino,$Imagen_Producto,$Talla,$Color,$Material,$Valor,$Descripcion,$ID_categoria,$ID_clasificacion){
 
