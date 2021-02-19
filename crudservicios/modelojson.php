@@ -20,7 +20,6 @@ class Datos extends Database{
         $stmt->bindParam(":address", $datosModel["address"],PDO::PARAM_STR);
         $stmt->bindParam(":document_type", $datosModel["document_type"],PDO::PARAM_STR);
         $stmt->bindParam(":password", $datosModel["password"],PDO::PARAM_STR);
-        $stmt->bindParam(":address", $datosModel["address"],PDO::PARAM_STR);
         $stmt->bindParam(":confirm_password", $datosModel["confirm_password"],PDO::PARAM_STR);
 
         if($stmt->execute()){
@@ -32,12 +31,9 @@ class Datos extends Database{
 
     public function readUsuarioModel($email,$tabla){
         $stmt = Database::getconectar()->prepare("SELECT document,id_roll,username,lastname,gender,email,phone,address,document_type,password,confirm_password from $tabla
-        join roll on rol.id_roll = $tabla.id_roll
+        join roles on rol.id_roll = $tabla.id_roll
         where email = :email");
-
-
-
-$stmt->bindParam(":email", $email,PDO::PARAM_STR);
+        $stmt->bindParam(":email", $email,PDO::PARAM_STR);
         $stmt->execute();
         $stmt->bindParam(":document", $document,PDO::PARAM_STR);
         $stmt->bindParam(":id_roll", $id_roll,PDO::PARAM_STR);
@@ -53,76 +49,8 @@ $stmt->bindParam(":email", $email,PDO::PARAM_STR);
         $usuarios = array();
 
     return  $stmt->fetchAll();
-
-
-
-
   }
-
-  public function readUsuariosModel(){
-    $stmt = Database::getconectar()->prepare("SELECT document,id_roll,username,lastname,gender,email,phone,address,document_type,password,confirm_password
-    FROM users");
-
-
-      $stmt->execute();
-      $stmt->bindParam(":document", $document,PDO::PARAM_STR);
-      $stmt->bindParam(":id_roll", $id_roll,PDO::PARAM_STR);
-      $stmt->bindParam(":username", $username,PDO::PARAM_STR);
-      $stmt->bindParam(":lastname", $lastname,PDO::PARAM_STR);
-      $stmt->bindParam(":gender", $gender,PDO::PARAM_STR);
-      $stmt->bindParam(":email", $email,PDO::PARAM_STR);
-      $stmt->bindParam(":phone", $phone,PDO::PARAM_STR);
-      $stmt->bindParam(":address", $address,PDO::PARAM_STR);
-      $stmt->bindParam(":document_type", $document_type,PDO::PARAM_STR);
-      $stmt->bindParam(":password", $password,PDO::PARAM_STR);
-      $stmt->bindParam(":confirm_password", $confirm_password,PDO::PARAM_STR);
-
-        return  $stmt->fetchAll();
-    }
-
-
-public function readUsuarioAdminModel($document,$tabla){
-    $stmt = Database::getconectar()->prepare("SELECT document,id_roll,username,lastname,gender,email,phone,address,document_type,password,confirm_password
-    FROM users
-    where document = :document");
-
-
-
-$stmt->bindParam(":document", $document,PDO::PARAM_STR);
-    $stmt->execute();
-
-    $stmt->bindParam(":document", $document,PDO::PARAM_STR);
-    $stmt->bindParam(":id_roll", $id_roll,PDO::PARAM_STR);
-    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
-    $stmt->bindParam(":lastname", $lastname,PDO::PARAM_STR);
-    $stmt->bindParam(":gender", $gender,PDO::PARAM_STR);
-    $stmt->bindParam(":email", $email,PDO::PARAM_STR);
-    $stmt->bindParam(":phone", $phone,PDO::PARAM_STR);
-    $stmt->bindParam(":address", $address,PDO::PARAM_STR);
-    $stmt->bindParam(":document_type", $document_type,PDO::PARAM_STR);
-    $stmt->bindParam(":password", $password,PDO::PARAM_STR);
-    $stmt->bindParam(":confirm_password", $confirm_password,PDO::PARAM_STR);
-
-
-return  $stmt->fetchAll();
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-     public function updateUsuarioModel($datosModel,$tabla){
+public function updateUsuarioModel($datosModel,$tabla){
         $stmt = Database::getconectar()->prepare("UPDATE $tabla set username=:username,
 lastname=:lastname,gender=:gender,email=:email,
 phone=:phone,address=:address,password=:password,

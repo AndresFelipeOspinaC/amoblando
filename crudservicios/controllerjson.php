@@ -3,6 +3,8 @@ require_once ('modelojson.php');
 
 class Controllerjson{
 
+//Controladores de los Usuarios
+
     public function createUsuarioController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password){
         $datosController = array("document_type"=>$document_type,
         "document"=>$document,
@@ -13,60 +15,60 @@ class Controllerjson{
         "email"=>$email,
         "phone"=>$phone,
         "address"=>$address,
-        "document_type"=>$document_type,
         "password"=>$password,
         "confirm_password"=>$confirm_password,
 
-        $respuesta = Datos::createUsuarioModel($datosController,"usuario");
+        $respuesta = Datos::createUsuarioModel("users"));
         return $respuesta;
     }
 
     public function readUsuarioController($email){
-        $respuesta = Datos::readUsuarioModel($email,"usuario");
+        $respuesta = Datos::readUsuarioModel($email,"users");
         return $respuesta;
     }
 
-    public function updateUsuariosController($document_type,$document,$Primer_Nombre,$Segundo_Nombre,
-    $Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$email,$password,
-    $confirmar_password,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
+    public function updateUsuariosController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password)
     {
-    $datosController = array("document_type" => $document_type,"document"=>$document,
-    "Primer_Nombre"=>$Primer_Nombre,"Segundo_Nombre" =>$Segundo_Nombre,
-    "Primer_Apellido" =>$Primer_Apellido,"Segundo_Apellido"=>$Segundo_Apellido,
-    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"email"=>$email,
-    "password" =>$password,"confirmar_password"=>$confirmar_password,"ID_Genero"=>$ID_Genero,
-    "ID_Ciudad" =>$ID_Ciudad,"direccion" =>$direccion,"observaciones"=>$observaciones);
-    $respuesta= Datos::updateUsuarioModel($datosController,"usuario");
+    $datosController = array("document" => $document,"id_roll"=>$id_roll,
+    "username"=>$username,"lastname" =>$lastname,
+    "gender"=>$gender,
+    "email" =>$email,"phone" =>$phone,
+    "password" =>$password,
+    "confirm_password"=>$confirm_password);
+    $respuesta= Datos::updateUsuarioModel($datosController,"users");
     return $respuesta;
     }
 
-   public function updateUsuarioAdminiController($document,$Primer_Nombre,$Segundo_Nombre,$Primer_Apellido,
-   $Segundo_Apellido,$fecha_nacimiento,$Telefono,$email,$ID_Genero,$ID_Ciudad,$direccion,$observaciones)
+   public function updateUsuarioAdminiController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password)
    {
-
-    $datosController = array("document"=>$document,
-    "Primer_Nombre"=>$Primer_Nombre,"Segundo_Nombre" =>$Segundo_Nombre,
-    "Primer_Apellido" =>$Primer_Apellido,"Segundo_Apellido"=>$Segundo_Apellido,
-    "fecha_nacimiento" =>$fecha_nacimiento,"Telefono" =>$Telefono,"email"=>$email,
-    "ID_Genero"=>$ID_Genero,"ID_Ciudad" =>$ID_Ciudad,"direccion" =>$direccion,"observaciones"=>$observaciones);
-    $respuesta= Datos::updateUsuarioAdminModel($datosController,"usuario");
+       $datosController = array("document" => $document,"id_roll"=>$id_roll,
+           "username"=>$username,"lastname" =>$lastname,
+           "gender"=>$gender,
+           "email" =>$email,"phone" =>$phone,
+           "password" =>$password,
+           "confirm_password"=>$confirm_password);
+       $respuesta= Datos::updateUsuarioAdminModel($datosController,"users");
     return $respuesta;
 
    }
     public function deleteUsuarioController($document,$document_type){
-        $respuesta = Datos::deleteUsuarioModel($document,$document_type, "usuario");
+        $respuesta = Datos::deleteUsuarioModel($document,$document_type, "users");
         return $respuesta;
     }
     public function loginUsuarioController($email, $password){
         $datosController = array("email"=>$email, "password"=>$password);
-        $respuesta = Datos::loginUsuarioModel($datosController, "usuario");
+        $respuesta = Datos::loginUsuarioModel($datosController, "users");
         return $respuesta;
     }
     public function mostrarcontrasenaController($email,$document){
-        $respuesta = Datos::mostrarcontrasenaModel($email,$document,"usuario");
+        $respuesta = Datos::mostrarcontrasenaModel($email,$document,"users");
 
         return $respuesta;
     }
+
+
+//Controladores de los PRODUCTOS
+
 
     public function createProductoController($ID_Producto,$Nombre_Producto,$destino,$Imagen_Producto,$Talla,$Color,$Material,$Valor,$Descripcion,$ID_categoria,$ID_clasificacion){
 
