@@ -33,7 +33,7 @@ if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
         case 'createusuario':
 
-            ParametrosDisponibles(array('document', 'id_roll', 'username', 'lastname',  'gender', 'email', 'password', 'confirm_password'));
+            ParametrosDisponibles(array('document',  'username', 'lastname', 'id_roll', 'gender', 'email', 'phone','address','document_type','password', 'confirm_password'));
             if($_POST["document"]=="" ||
                 $_POST["id_roll"]=="" ||
 
@@ -42,7 +42,10 @@ if(isset($_GET['apicall'])){
                 $_POST["gender"]=="" ||
 
             $_POST["email"]=="" ||
-                $_POST["password"]=="" ||
+                $_POST["phone"]=="" ||
+                $_POST["address"]==""  ||
+                $_POST["document_type"]==""  ||
+                $_POST["password"]==""  ||
                 $_POST["confirm_password"]=="" )
 
             {
@@ -81,60 +84,41 @@ if(isset($_GET['apicall'])){
             break;
             }
 
-            $ID_Usuario = $_POST["ID_Usuario"];
-            $Primer_Nombre = $_POST["Primer_Nombre"];
-            $Segundo_Nombre = $_POST["Segundo_Nombre"];
-            $Primer_Apellido = $_POST["Primer_Apellido"];
-            $Segundo_Apellido = $_POST["Segundo_Apellido"];
-            $fecha_nacimiento = $_POST["fecha_nacimiento"];
-            $Telefono = $_POST["Telefono"];
-            $Correo = $_POST["Correo"];
-            $Contrasena = $_POST["Contrasena"];
-            $confirmar_Contrasena = $_POST["confirmar_Contrasena"];
-            $ID_Genero = $_POST["ID_Genero"] ;
-
-            if ($ID_Genero == "Masculino"){
-                $ID_Genero = "GEN01";
-            }else if ($ID_Genero == "Femenino"){
-                $ID_Genero= "GEN02";
+            $document = $_POST["document"];
+            $username = $_POST["username"];
+            $lastname = $_POST["lastname"];
+            $gender = $_POST["gender"];
+            $email = $_POST["email"];
+            $phone = $_POST["phone"];
+            $address = $_POST["address"];
+            $id_roll= $_POST["id_roll"];
+            $password = $_POST["password"];
+            $confirm_password = $_POST["confirm_password"];
+            if ($gender == "Masculino"){
+                $gender = "GEN01";
+            }else if ($gender == "Femenino"){
+                $gender= "GEN02";
             }else {
-                $ID_Genero = "";
-            }
+                $gender= "";
+            }}
 
-            $ID_Ciudad = $_POST["ID_Ciudad"];
+            $address = $_POST["address"];
 
-            switch ($_POST["ID_Ciudad"]){
-            case "Bogotá":  $ID_Ciudad = "CIU008";
-            break;
+            $id_roll = $_POST["id_roll"];
 
-            case "Cali":  $ID_Ciudad = "CIU012";
-            break;
+            if ($_POST["id_roll"] == "users") {
 
-            case "Medellín":  $ID_Ciudad = "CIU039";
-            break;
-            }
-            $direccion = $_POST["direccion"];
-
-            $observaciones = $_POST["observaciones"];
-
-            $ID_Rol = $_POST["ID_Rol"];
-
-            if ($_POST["ID_Rol"] == "Usuario") {
-
-            $ID_Rol= "ROL01";
+            $id_roll= "ROL01";
             }
 
             else if ($_POST["ID_Rol"] == "Administrador" ){
 
-                $ID_Rol = "ROL02";
+                $id_roll = "ROL02";
             }else {
             }
 
             $db = new Controllerjson();
-            $result = $db->createUsuarioController($document_type,$ID_Usuario,$Primer_Nombre,
-            $Segundo_Nombre,$Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$Correo,$Contrasena,
-            $confirmar_Contrasena,$ID_Genero,$ID_Ciudad,$direccion,$observaciones,$ID_Rol);
-
+            $result = $db->createUsuarioController($document, $username, $lastname, $id_roll, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
 
         if($result){
             $respuesta['error'] = false;
@@ -144,7 +128,7 @@ if(isset($_GET['apicall'])){
             $respuesta['error'] = true;
             $respuesta['mensaje'] = 'Ocurrio un error intenta nuevamente';
         }
-    }
+    }}
     break;
 
     case 'readusuario':

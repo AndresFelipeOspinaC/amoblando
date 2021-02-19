@@ -8,13 +8,14 @@ class Controllerjson{
     public function createUsuarioController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password){
         $datosController = array("document_type"=>$document_type,
         "document"=>$document,
-        "id_roll"=>$id_roll,
+
         "username"=>$username,
         "lastname"=>$lastname,
         "gender"=>$gender,
         "email"=>$email,
         "phone"=>$phone,
         "address"=>$address,
+        "id_roll"=>$id_roll,
         "password"=>$password,
         "confirm_password"=>$confirm_password,
 
@@ -28,13 +29,15 @@ class Controllerjson{
     }
     public function updateUsuariosController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password)
     {
-    $datosController = array("document" => $document,"id_roll"=>$id_roll,
+    $datosController = array("document" => $document,
+
     "username"=>$username,
     "lastname" =>$lastname,
     "gender"=>$gender,
     "email" =>$email,
     "phone" =>$phone,
     "address"=>$address,
+    "id_roll"=>$id_roll,
     "document_type"=>$document_type,
     "password" =>$password,
     "confirm_password"=>$confirm_password);
