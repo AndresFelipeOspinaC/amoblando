@@ -26,13 +26,16 @@ class Controllerjson{
         $respuesta = Datos::readUsuarioModel($email,"users");
         return $respuesta;
     }
-
     public function updateUsuariosController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password)
     {
     $datosController = array("document" => $document,"id_roll"=>$id_roll,
-    "username"=>$username,"lastname" =>$lastname,
+    "username"=>$username,
+    "lastname" =>$lastname,
     "gender"=>$gender,
-    "email" =>$email,"phone" =>$phone,
+    "email" =>$email,
+    "phone" =>$phone,
+    "address"=>$address,
+    "document_type"=>$document_type,
     "password" =>$password,
     "confirm_password"=>$confirm_password);
     $respuesta= Datos::updateUsuarioModel($datosController,"users");
@@ -42,9 +45,13 @@ class Controllerjson{
    public function updateUsuarioAdminiController($document,$id_roll, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password)
    {
        $datosController = array("document" => $document,"id_roll"=>$id_roll,
-           "username"=>$username,"lastname" =>$lastname,
+           "username"=>$username,
+           "lastname" =>$lastname,
            "gender"=>$gender,
-           "email" =>$email,"phone" =>$phone,
+           "email" =>$email,
+           "phone" =>$phone,
+           "address"=>$address,
+           "document_type"=>$document_type,
            "password" =>$password,
            "confirm_password"=>$confirm_password);
        $respuesta= Datos::updateUsuarioAdminModel($datosController,"users");

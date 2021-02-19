@@ -33,16 +33,17 @@ if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
         case 'createusuario':
 
-            ParametrosDisponibles(array('document_type', 'ID_Usuario', 'Primer_Nombre', 'Primer_Apellido',  'fecha_nacimiento', 'Telefono', 'Correo', 'Contrasena', 'confirmar_Contrasena', 'ID_Genero', 'ID_Ciudad', 'direccion', 'ID_Rol'));
-            if($_POST["document_type"]=="" || $_POST["ID_Usuario"]=="" ||
+            ParametrosDisponibles(array('document', 'id_roll', 'username', 'lastname',  'gender', 'email', 'password', 'confirm_password'));
+            if($_POST["document"]=="" ||
+                $_POST["id_roll"]=="" ||
 
-            $_POST["Primer_Nombre"]=="" ||  $_POST["Primer_Apellido"]=="" || $_POST["fecha_nacimiento"]=="" ||
+            $_POST["username"]=="" ||
+                $_POST["lastname"]=="" ||
+                $_POST["gender"]=="" ||
 
-            $_POST["Telefono"]=="" ||  $_POST["Correo"]=="" ||  $_POST["Contrasena"]=="" ||
-
-            $_POST["confirmar_Contrasena"]=="" ||  $_POST["ID_Genero"]=="" ||  $_POST["ID_Ciudad"]=="" ||
-
-            $_POST["ID_Rol"]=="" ||  $_POST["direccion"]==""   )
+            $_POST["email"]=="" ||
+                $_POST["password"]=="" ||
+                $_POST["confirm_password"]=="" )
 
             {
                 echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
@@ -51,7 +52,7 @@ if(isset($_GET['apicall'])){
                 ";
             }
 
-            else if ($_POST["Contrasena"] != $_POST["confirmar_Contrasena"]  ){
+            else if ($_POST["password"] != $_POST["confirm_password"]  ){
 
                 echo "<h3> Contraseñas no coinciden por Favor intente de nuevo </h3>
                 <a href='registrarse.html'> Registrarse </a>
