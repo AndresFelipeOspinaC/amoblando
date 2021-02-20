@@ -1,13 +1,13 @@
 body{
-  margin:0;
+  margin:-60px;
   color:#6a6f8c;
   background:#c8c8c8;
-  font:600 16px/18px 'Open Sans',sans-serif;
+
   background: linear-gradient(to bottom,
-  rgba(0, 0, 0, 0.932),
-  rgba(29, 9, 9, 0.671),
-  rgba(0, 0, 0, 0.87)
-  ), url(../IMG/UTIL/design.jpg);
+  rgba(0, 0, 0, 0.801),
+  rgba(0, 0, 0, 0.795),
+  rgba(0, 0, 0, 0.74)
+  ), url(../IMG/UTIL/living-room-2155376_1280.jpg);
   
 }
 
