@@ -107,18 +107,15 @@ if(isset($_GET['apicall'])){
             $id_roll = $_POST["id_roll"];
 
             if ($_POST["id_roll"] == "users") {
-
-            $id_roll= "ROL01";
+            $id_roll= "1";
             }
-
             else if ($_POST["ID_Rol"] == "Administrador" ){
-
-                $id_roll = "ROL02";
+                $id_roll = "2";
             }else {
             }
 
             $db = new Controllerjson();
-            $result = $db->createUsuarioController($document, $username, $lastname, $id_roll, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
+            $result = $db->createUsuarioController($document, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
 
         if($result){
             $respuesta['error'] = false;
@@ -128,29 +125,28 @@ if(isset($_GET['apicall'])){
             $respuesta['error'] = true;
             $respuesta['mensaje'] = 'Ocurrio un error intenta nuevamente';
         }
-    }}
+
     break;
 
     case 'readusuario':
-        ParametrosDisponibles(array('Correo'));
+        ParametrosDisponibles(array('email'));
         $db = new Controllerjson();
-        $result = $db->readUsuarioController($_POST["Correo"]);
+        $result = $db->readUsuarioController($_POST["email"]);
         $respuesta['error'] = false;
         $respuesta['mensaje'] = 'Solicitud completada correctamente';
-        $respuesta['contenido'] = $db->readUsuarioController($_POST["Correo"]);
+        $respuesta['contenido'] = $db->readUsuarioController($_POST["email"]);
+
 
     break;
 
 
     case 'loginusuario':
         session_start();
-        ParametrosDisponibles(array('Correo', 'Contrasena'));
+        ParametrosDisponibles(array('email', 'Contrasena'));
         $db = new Controllerjson();
-        $result = $db->loginUsuarioController($_POST['Correo'], $_POST['Contrasena']);
+        $result = $db->loginUsuarioController($_POST['email'], $_POST['Contrasena']);
 
-
-
-        if(!$result){
+       if(!$result){
             $respuesta['error'] = true;
             $respuesta['mensaje'] = 'Contrasena incorrecta';
         }else{
@@ -161,22 +157,23 @@ if(isset($_GET['apicall'])){
     break;
 
     case 'updateusuario':
- ParametrosDisponibles(array('document_type','ID_Usuario','Primer_Nombre',
- 'Primer_Apellido','fecha_nacimiento', 'Telefono', 'Correo',
- 'Contrasena','ID_Genero', 'ID_Ciudad', 'direccion', 'observaciones'));
+ ParametrosDisponibles(array('document','username','lastname',
+ 'id_roll','gender', 'addres', 'phone',
+ 'email','password', 'confirm_password'));
 
 
 
 
-if(($_POST["document_type"]=="" || $_POST["document_type"]== null ) ||
-($_POST["ID_Usuario"]=="" || $_POST["ID_Usuario"]== null ) ||
-($_POST["Primer_Nombre"]=="" || $_POST["Primer_Nombre"]== null ) || ($_POST["Primer_Apellido"]==""
-|| $_POST["Primer_Apellido"]==null ) || ($_POST["fecha_nacimiento"]=="" ||
-$_POST["fecha_nacimiento"]== null ) ||($_POST["Telefono"]=="" ||  $_POST["Telefono"]==null )
-|| ($_POST["Correo"]=="" || $_POST["Correo"]== null)  || ($_POST["Contrasena"]=="" ||
-$_POST["Contrasena"]== null)  || ($_POST["ID_Genero"]=="" || $_POST["ID_Genero"]==null )
-||($_POST["ID_Ciudad"]=="" || $_POST["ID_Ciudad"]== null  ) ||
-  ($_POST["direccion"]=="" || $_POST["direccion"]== null ))
+if(($_POST["document"]=="" ||
+$_POST["username"]== null ) ||
+($_POST["lastname"]=="" ||
+($_POST["gender"]=="" ||
+ $_POST["email"]== null ) ||
+ $_POST["phone"]== null ) ||
+ $_POST["address"]==null  ||
+  ($_POST["id_roll"]=="") ||
+  ($_POST["password"]=="" ||
+$_POST["confirm_password"]== null ))
         {
             echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
             <a href='usuarioactualizar.php'> Volver a Actualizar Datos </a>
@@ -185,86 +182,36 @@ $_POST["Contrasena"]== null)  || ($_POST["ID_Genero"]=="" || $_POST["ID_Genero"]
         else {
 
             $document_type = $_POST["document_type"];
-
-            switch($_POST["document_type"]){
-                case "Cedula de Ciudadania" : $document_type= "TD01";
-            break;
-                case "Cedula de Extranjeria" : $document_type= "TD02";
-            break;
-                case "Tarjeta de Identidad" : $document_type= "TD03";
-            break;
-                case "Pasaporte Extranjero" : $document_type= "TD04";
-            break;
-                case "Registro Cívil" : $document_type= "TD05";
-            break;
-
-
-            default: echo "No es valido Tipo de Documento";
-            break;
-            }
-
-
-
-
-
-        $ID_Usuario= $_POST["ID_Usuario"];
-
-        $ID_Genero = $_POST["ID_Genero"];
-
-        if($ID_Genero == "Masculino"){
-            $ID_Genero = "GEN01";
-        }
-        elseif($ID_Genero == "Femenino"){
-            $ID_Genero= "GEN02";
-        }
-        else{
-            $ID_Genero = "";
-        };
-        $ID_Ciudad=$_POST["ID_Ciudad"];
-        switch($_POST["ID_Ciudad"]){
-            case "Bogotá":$ID_Ciudad="CIU008";
-            break;
-
-            case "Cali":$ID_Ciudad="CIU012";
-            break;
-
-            case "Medellín":$ID_Ciudad="CIU039";
-            break;
-            };
-        $Primer_Nombre=$_POST["Primer_Nombre"];
-        $Segundo_Nombre=$_POST["Segundo_Nombre"];
-        $Primer_Apellido=$_POST["Primer_Apellido"];
-        $Segundo_Apellido=$_POST["Segundo_Apellido"];
-        $fecha_nacimiento=$_POST["fecha_nacimiento"];
-        $Telefono=$_POST["Telefono"];
-        $Correo=$_POST["Correo"];
-        $Contrasena= $_POST["Contrasena"];
-        $confirmar_Contrasena = $_POST["Contrasena"];
-        $direccion=$_POST["direccion"];
-        $observaciones=$_POST["observaciones"];
+            $gender= $_POST["gender"];
+            $document = $_POST["document"];
+            $username = $_POST["username"];
+            $lastname = $_POST["lastname"];
+            $gender = $_POST["gender"];
+            $email = $_POST["email"];
+            $phone = $_POST["phone"];
+            $address = $_POST["address"];
+            $id_roll= $_POST["id_roll"];
+            $password = $_POST["password"];
+            $confirm_password = $_POST["confirm_password"];
 
         $db = new Controllerjson();
-        $result = $db->updateUsuariosController($document_type,$ID_Usuario,$Primer_Nombre,$Segundo_Nombre,$Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$Correo,$Contrasena,$confirmar_Contrasena,$ID_Genero,$ID_Ciudad,$direccion,$observaciones);
+        $result = $db->updateUsuariosController($document, $username, $lastname, $id_roll, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
 
         }
+
 
     break;
 
 
     case 'updateadminusuario':
-        ParametrosDisponibles(array('ID_Usuario','Primer_Nombre',
-        'Primer_Apellido','fecha_nacimiento', 'Telefono', 'Correo',
-        'ID_Genero', 'ID_Ciudad', 'direccion', 'observaciones'));
-
-
-
-
+        ParametrosDisponibles(array('document','username',
+        'lastname','gender', 'phone','address', 'document_type','password','confirm_password'));
        if(
-       ($_POST["ID_Usuario"]=="" || $_POST["ID_Usuario"]== null ) ||
+       ($_POST["documento"]=="" || $_POST["documento"]== null ) ||
        ($_POST["Primer_Nombre"]=="" || $_POST["Primer_Nombre"]== null ) || ($_POST["Primer_Apellido"]==""
        || $_POST["Primer_Apellido"]==null ) || ($_POST["fecha_nacimiento"]=="" ||
        $_POST["fecha_nacimiento"]== null ) ||($_POST["Telefono"]=="" ||  $_POST["Telefono"]==null )
-       || ($_POST["Correo"]=="" || $_POST["Correo"]== null)  ||   ($_POST["ID_Genero"]=="" ||
+       || ($_POST["email"]=="" || $_POST["email"]== null)  ||   ($_POST["ID_Genero"]=="" ||
        $_POST["ID_Genero"]==null )
        ||($_POST["ID_Ciudad"]=="" || $_POST["ID_Ciudad"]== null  ) ||
          ($_POST["direccion"]=="" || $_POST["direccion"]== null ))
@@ -274,63 +221,43 @@ $_POST["Contrasena"]== null)  || ($_POST["ID_Genero"]=="" || $_POST["ID_Genero"]
                    <a href='menuusuario.php'> Ir a Menú Usuario </a>";
                }
                else {
-
-
-
-               $ID_Usuario= $_POST["ID_Usuario"];
-
-               $ID_Genero = $_POST["ID_Genero"];
-
-               if($ID_Genero == "Masculino"){
-                   $ID_Genero = "GEN01";
+               $document= $_POST["document"];
+               $gender = $_POST["gender"];
+               if($gender == "Masculino"){
+                   $gender = "GEN01";
                }
-               elseif($ID_Genero == "Femenino"){
-                   $ID_Genero= "GEN02";
+               elseif($gender == "Femenino"){
+                   $gender= "GEN02";
                }
                else{
-                   $ID_Genero = "";
+                   $gender = "";
                };
-               $ID_Ciudad=$_POST["ID_Ciudad"];
-               switch($_POST["ID_Ciudad"]){
-                   case "Bogotá":$ID_Ciudad="CIU008";
-                   break;
-
-                   case "Cali":$ID_Ciudad="CIU012";
-                   break;
-
-                   case "Medellín":$ID_Ciudad="CIU039";
-                   break;
-                   };
-               $Primer_Nombre=$_POST["Primer_Nombre"];
-               $Segundo_Nombre=$_POST["Segundo_Nombre"];
-               $Primer_Apellido=$_POST["Primer_Apellido"];
-               $Segundo_Apellido=$_POST["Segundo_Apellido"];
-               $fecha_nacimiento=$_POST["fecha_nacimiento"];
-               $Telefono=$_POST["Telefono"];
-               $Correo=$_POST["Correo"];
-               $direccion=$_POST["direccion"];
-               $observaciones=$_POST["observaciones"];
-
+                   $document_type = $_POST["document_type"];
+                   $document = $_POST["document"];
+                   $username = $_POST["username"];
+                   $lastname = $_POST["lastname"];
+                   $gender = $_POST["gender"];
+                   $email = $_POST["email"];
+                   $phone = $_POST["phone"];
+                   $address = $_POST["address"];
+                   $id_roll= $_POST["id_roll"];
+                   $password = $_POST["password"];
+                   $confirm_password = $_POST["confirm_password"];
                $db = new Controllerjson();
-               $result = $db->updateUsuarioAdminiController($ID_Usuario,$Primer_Nombre,$Segundo_Nombre,$Primer_Apellido,$Segundo_Apellido,$fecha_nacimiento,$Telefono,$Correo,$ID_Genero,$ID_Ciudad,$direccion,$observaciones);
-
+               $result = $db->updateUsuarioAdminiController($document, $username, $lastname, $id_roll, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
                }
-
            break;
-
     case 'mostrarcontrasena':
-        ParametrosDisponibles(array('Correo','ID_Usuario'));
+        ParametrosDisponibles(array('email','document'));
         $db = new Controllerjson();
-      $result = $db->mostrarcontrasenaController($_POST['Correo'],$_POST['ID_Usuario']);
+      $result = $db->mostrarcontrasenaController($_POST['email'],$_POST['document']);
 
       $respuesta = $result;
     break;
-
-
     case 'deleteusuario':
-        ParametrosDisponibles(array('ID_Usuario','document_type'));
+        ParametrosDisponibles(array('document','document_type'));
         $db = new Controllerjson();
-        $result = $db->deleteUsuarioController($_POST['ID_Usuario'], $_POST['document_type']);
+        $result = $db->deleteUsuarioController($_POST['document'], $_POST['document_type']);
 
         if(!$result){
             $respuesta['error'] = false;
