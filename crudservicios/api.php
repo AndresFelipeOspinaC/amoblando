@@ -32,15 +32,17 @@ require_once 'modelojson.php';
     switch($_GET['apicall']){
     case 'createusuario':
         ParametrosDisponibles(array('document_type','document','username','lastname','id_roll','gender','email','phone','address','password', 'confirm_password'));
-        if($_POST["document"]=="" ||
-            $_POST["id_roll"]=="" ||
+        if($_POST["document_type"]==""||
+            $_POST["document"]=="" ||
+            
             $_POST["username"]=="" ||
             $_POST["lastname"]=="" ||
+            $_POST["id_roll"]=="" ||
             $_POST["gender"]=="" ||
             $_POST["email"]=="" ||
             $_POST["phone"]=="" ||
             $_POST["address"]==""||
-            $_POST["document_type"]==""||
+            
             $_POST["password"]==""  ||
             $_POST["confirm_password"]=="" )
         {
