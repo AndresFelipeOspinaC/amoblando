@@ -2,7 +2,7 @@
 require_once 'controllerjson.php';
 require_once 'modelojson.php';
 
-function ParametrosDisponibles($params){
+    function ParametrosDisponibles($params){
     $disponible = true;
     $faltantes = "";
 
@@ -26,8 +26,8 @@ function ParametrosDisponibles($params){
         die();
     }
 }
-$respuesta = array();
 
+    $respuesta = array();
     if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
     case 'createusuario':
@@ -46,17 +46,13 @@ $respuesta = array();
         {
             echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
                  <a href='registrarse.html'> Registrarse </a>
-                                 <a href='index.html'> Ir a la Página Principal </a>
-           ";
+                 <a href='index.html'> Ir a la Página Principal</a>";
         }
-
-            else if ($_POST["password"] != $_POST["confirm_password"]  ){
-
+        else if ($_POST["password"] != $_POST["confirm_password"]  ){
                 echo "<h3> Contraseñas no coinciden por Favor intente de nuevo </h3>
                 <a href='registrarse.html'> Registrarse </a>
                 <a href='index.html'> Ir a la Página Principal </a>";
             }
-
             else {
             $document_type = $_POST["document_type"];
             $document = $_POST["document"];
