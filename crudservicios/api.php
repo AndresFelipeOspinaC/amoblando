@@ -28,26 +28,22 @@ function ParametrosDisponibles($params){
 }
 $respuesta = array();
 
-if(isset($_GET['apicall'])){
-
+    if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
-        case 'createusuario':
+    case 'createusuario':
 
-            ParametrosDisponibles(array('document',  'username', 'lastname', 'id_roll', 'gender', 'email', 'phone','address','document_type','password', 'confirm_password'));
-            if($_POST["document"]=="" ||
+            ParametrosDisponibles(array('document_type','document','username','lastname','id_roll','gender','email','phone','address','password', 'confirm_password'));
+             if($_POST["document"]=="" ||
                 $_POST["id_roll"]=="" ||
-
-            $_POST["username"]=="" ||
+                $_POST["username"]=="" ||
                 $_POST["lastname"]=="" ||
                 $_POST["gender"]=="" ||
-
-            $_POST["email"]=="" ||
+                $_POST["email"]=="" ||
                 $_POST["phone"]=="" ||
                 $_POST["address"]==""  ||
                 $_POST["document_type"]==""  ||
                 $_POST["password"]==""  ||
                 $_POST["confirm_password"]=="" )
-
             {
                 echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
                 <a href='registrarse.html'> Registrarse </a>
@@ -63,59 +59,20 @@ if(isset($_GET['apicall'])){
             }
 
             else {
-
             $document_type = $_POST["document_type"];
-
-
-            switch($_POST["document_type"]){
-                case "Cédula de Ciudadanía" : $document_type= "TD01";
-            break;
-                case "Cédula de Extranjería" : $document_type= "TD02";
-            break;
-                case "Tarjeta de Identidad" : $document_type= "TD03";
-            break;
-                case "Pasaporte Extranjero" : $document_type= "TD04";
-            break;
-                case "Registro Cívil" : $document_type= "TD05";
-            break;
-
-
-            default: echo "No es valido Tipo de Documento";
-            break;
-            }
-
             $document = $_POST["document"];
             $username = $_POST["username"];
             $lastname = $_POST["lastname"];
+            $id_roll= $_POST["id_roll"];
             $gender = $_POST["gender"];
             $email = $_POST["email"];
             $phone = $_POST["phone"];
             $address = $_POST["address"];
-            $id_roll= $_POST["id_roll"];
             $password = $_POST["password"];
             $confirm_password = $_POST["confirm_password"];
-            if ($gender == "Masculino"){
-                $gender = "GEN01";
-            }else if ($gender == "Femenino"){
-                $gender= "GEN02";
-            }else {
-                $gender= "";
-            }}
-
-            $address = $_POST["address"];
-
-            $id_roll = $_POST["id_roll"];
-
-            if ($_POST["id_roll"] == "users") {
-            $id_roll= "1";
-            }
-            else if ($_POST["ID_Rol"] == "Administrador" ){
-                $id_roll = "2";
-            }else {
-            }
-
+           }
             $db = new Controllerjson();
-            $result = $db->createUsuarioController($document, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $document_type, $password, $confirm_password);
+            $result = $db->createUsuarioController($document_type,$document, $username, $lastname, $id_roll, $gender, $email, $phone, $address, $password, $confirm_password);
 
         if($result){
             $respuesta['error'] = false;
@@ -127,7 +84,7 @@ if(isset($_GET['apicall'])){
         }
 
     break;
-
+        /*
     case 'readusuario':
         ParametrosDisponibles(array('email'));
         $db = new Controllerjson();
@@ -138,8 +95,6 @@ if(isset($_GET['apicall'])){
 
 
     break;
-
-
     case 'loginusuario':
         session_start();
         ParametrosDisponibles(array('email', 'Contrasena'));
@@ -155,7 +110,6 @@ if(isset($_GET['apicall'])){
             $respuesta['contenido'] = $result;
         }
     break;
-
     case 'updateusuario':
  ParametrosDisponibles(array('document','username','lastname',
  'id_roll','gender', 'addres', 'phone',
@@ -201,8 +155,6 @@ $_POST["confirm_password"]== null ))
 
 
     break;
-
-
     case 'updateadminusuario':
         ParametrosDisponibles(array('document','username',
         'lastname','gender', 'phone','address', 'document_type','password','confirm_password'));
@@ -267,9 +219,7 @@ $_POST["confirm_password"]== null ))
             $respuesta['mensaje'] = 'Usuario no Existe';
         }
     break;
-
-
-   case 'createproducto':
+    case 'createproducto':
     ParametrosDisponibles(array('ID_Producto', 'Nombre_Producto','Talla', 'Color', 'Material', 'Valor', 'Descripcion', 'ID_categoria', 'ID_clasificacion'));
 
     $ID_Producto =  $_POST["ID_Producto"];
@@ -359,8 +309,6 @@ $_POST["confirm_password"]== null ))
     }
 
     break;
-
-
     case 'updateproducto':
     ParametrosDisponibles(array('ID_Producto', 'Nombre_Producto','Talla', 'Color', 'Material', 'Valor', 'Descripcion', 'ID_categoria', 'ID_clasificacion'));
 
@@ -469,8 +417,7 @@ $_POST["confirm_password"]== null ))
 }
 
 break;
-
-case 'deleteproducto':
+    case 'deleteproducto':
     ParametrosDisponibles(array('ID_Producto'));
     $db = new Controllerjson();
     $result = $db->deleteProductoController($_POST["ID_Producto"]);
@@ -485,11 +432,12 @@ case 'deleteproducto':
         header("location:../administrador/crud/administraproducto.php");
     }
 break;
-
+    */
     }
 }else{
     $respuesta['error'] = true;
     $respuesta['mensaje'] = 'Llamado invalido del API!';
 }
+
 echo json_encode($respuesta);
 ?>

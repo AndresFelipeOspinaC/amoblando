@@ -7,18 +7,18 @@ class Datos extends Database{
 
     // Usuarios
     public function createUsuarioModel($datosModel,$tabla){
-        $stmt = Database::getconectar()->prepare("INSERT INTO $tabla(document,id_roll,username,lastname,gender,email,phone,address,document_type,password,confirm_password)
-        VALUES(:document,:id_roll,:username,:lastname,:gender,:email,:phone,:address,:document_type,:password,:confirm_password)");
+        $stmt = Database::getconectar()->prepare("INSERT INTO $tabla(document_type,document,username,lastname,id_roll,gender,email,phone,address,password,confirm_password)
+        VALUES(:document_type,:document,:username,:lastname,:id_roll,:gender,:email,:phone,:address,:password,:confirm_password)");
 
+        $stmt->bindParam(":document_type", $datosModel["document_type"],PDO::PARAM_STR);
         $stmt->bindParam(":document", $datosModel["document"],PDO::PARAM_STR);
-        $stmt->bindParam(":id_roll", $datosModel["id_roll"],PDO::PARAM_STR);
         $stmt->bindParam(":username", $datosModel["username"],PDO::PARAM_STR);
         $stmt->bindParam(":lastname", $datosModel["lastname"],PDO::PARAM_STR);
+        $stmt->bindParam(":id_roll", $datosModel["id_roll"],PDO::PARAM_STR);
         $stmt->bindParam(":gender", $datosModel["gender"],PDO::PARAM_STR);
         $stmt->bindParam(":email", $datosModel["email"],PDO::PARAM_STR);
         $stmt->bindParam(":phone", $datosModel["phone"],PDO::PARAM_STR);
         $stmt->bindParam(":address", $datosModel["address"],PDO::PARAM_STR);
-        $stmt->bindParam(":document_type", $datosModel["document_type"],PDO::PARAM_STR);
         $stmt->bindParam(":password", $datosModel["password"],PDO::PARAM_STR);
         $stmt->bindParam(":confirm_password", $datosModel["confirm_password"],PDO::PARAM_STR);
 
@@ -29,6 +29,7 @@ class Datos extends Database{
         }
     }
 
+    /*
     public function readUsuarioModel($email,$tabla){
         $stmt = Database::getconectar()->prepare("SELECT document,id_roll,username,lastname,gender,email,phone,address,document_type,password,confirm_password from $tabla
         join roles on rol.id_roll = $tabla.id_roll
@@ -50,7 +51,7 @@ class Datos extends Database{
 
     return  $stmt->fetchAll();
   }
-public function updateUsuarioModel($datosModel,$tabla){
+    public function updateUsuarioModel($datosModel,$tabla){
         $stmt = Database::getconectar()->prepare("UPDATE $tabla set username=:username,
 lastname=:lastname,gender=:gender,email=:email,
 phone=:phone,address=:address,password=:password,
@@ -74,8 +75,7 @@ where document_type= :document_type and document = :document");
             echo "No se pudo hacer la Actualizacion";
         }
     }
-
-     public function updateUsuarioAdminModel($datosModel,$tabla){
+    public function updateUsuarioAdminModel($datosModel,$tabla){
 
 
         $stmt = Database::getconectar()->prepare("UPDATE $tabla set username=:username,
@@ -102,7 +102,6 @@ if($stmt->execute()){
     echo "No se pudo hacer la Actualizacion";
 }
  }
-
     public function deleteUsuarioModel($document,$document_type, $tabla){
         $stmt = Database::getconectar()->prepare("DELETE FROM $tabla WHERE document=:document and document_type
         = :document_type");
@@ -112,7 +111,6 @@ if($stmt->execute()){
 
         $stmt->execute();
     }
-
     public function loginUsuarioModel($datosModel, $tabla){
         $stmt = Database::getconectar()->prepare("SELECT email,password,id_roll from $tabla
         join roles on $tabla.id_roll = roles.id_roll
@@ -153,8 +151,6 @@ if($stmt->execute()){
             return false;
         }
     }
-
-
     public function mostrarcontrasenaModel($email,$document,$tabla){
 
         $stmt = Database::getconectar()->prepare("SELECT email,document,Contrasena FROM $tabla where email=:email and document=:document");
@@ -192,9 +188,7 @@ if($stmt->execute()){
         }
 
     }
-
-
- public function todoGeneroModel($gender,$tabla){
+    public function todoGeneroModel($gender,$tabla){
 
     $stmt = Database::getconectar()->prepare("SELECT Nombre_Genero from $tabla where Nombre_Genero
     <> :Nombre_Genero");
@@ -212,7 +206,7 @@ return $stmt->fetchAll();
 // Hasta aca voy 15.02.21
 // Productos
 
- public function mostrarProductos(){
+    public function mostrarProductos(){
 
     $stmt = Database::getconectar()->prepare("SELECT ID_Producto, Nombre_Producto, Imagen_Producto,
      Talla, Color, Material, Valor, Nombre_Categoria, Nombre_Clasificacion,Descripcion
@@ -239,8 +233,7 @@ $stmt->execute();
 
 
  }
-
- public function createProductoModel($datosModel,$tabla){
+    public function createProductoModel($datosModel,$tabla){
 
 $IMG="../fotos/".$datosModel["IMG"];
 
@@ -268,8 +261,7 @@ $stmt->bindParam(":ID_Producto", $datosModel["ID_Producto"],PDO::PARAM_STR);
 
 
  }
-
- public function editarproducto($ID_Producto,$tabla){
+    public function editarproducto($ID_Producto,$tabla){
     $stmt = Database::getconectar()->prepare("SELECT ID_Producto, Nombre_Producto, Imagen_Producto,
     Talla, Color, Material, Valor, Nombre_Categoria, Nombre_Clasificacion,
     Descripcion
@@ -299,8 +291,7 @@ return $stmt->fetchAll();
 
 
  }
-
- public function mostrarCategoria($Nombre_Categoria,$tabla){
+    public function mostrarCategoria($Nombre_Categoria,$tabla){
 
     $stmt = Database::getconectar()->prepare("SELECT Nombre_Categoria from $tabla
     where Nombre_Categoria <> :Nombre_Categoria");
@@ -314,8 +305,7 @@ return $stmt->fetchAll();
 
 
  }
-
- public function mostrarClasificacion($Nombre_Clasificacion,$tabla){
+    public function mostrarClasificacion($Nombre_Clasificacion,$tabla){
 
     $stmt = Database::getconectar()->prepare("SELECT Nombre_Clasificacion from $tabla
     where Nombre_Clasificacion <> :Nombre_Clasificacion");
@@ -329,8 +319,7 @@ return $stmt->fetchAll();
 
 
  }
-
- public function volverImagen($ID_Producto,$tabla){
+    public function volverImagen($ID_Producto,$tabla){
 
 $stmt = Database::getconectar()->prepare("SELECT ID_Producto, Nombre_Producto, Imagen_Producto,
 Talla, Color, Material, Valor, Nombre_Categoria, Nombre_Clasificacion,
@@ -358,9 +347,7 @@ $stmt->bindParam(":ID_Producto", $ID_Producto,PDO::PARAM_STR);
 
 
  }
-
-
- public function updateProductoModel($datosModel,$tabla){
+    public function updateProductoModel($datosModel,$tabla){
 
 if($datosModel["Imagen_Producto"] == "../administrador/fotos/".$datosModel["IMG"])
 
@@ -404,13 +391,13 @@ $stmt->bindParam(":ID_Producto", $datosModel["ID_Producto"],PDO::PARAM_STR);
             return false;
         }
  }
-
- public function deleteProductoModel($ID_Producto, $tabla){
+    public function deleteProductoModel($ID_Producto, $tabla){
 
     $stmt = Database::getconectar()->prepare("DELETE  FROM $tabla WHERE ID_Producto=:ID_Producto");
 
     $stmt->bindParam(":ID_Producto",$ID_Producto, PDO::PARAM_STR);
     $stmt->execute();
 }
+*/
  }
 ?>
