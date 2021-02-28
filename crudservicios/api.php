@@ -31,25 +31,24 @@ $respuesta = array();
     if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
     case 'createusuario':
-
-            ParametrosDisponibles(array('document_type','document','username','lastname','id_roll','gender','email','phone','address','password', 'confirm_password'));
-             if($_POST["document"]=="" ||
-                $_POST["id_roll"]=="" ||
-                $_POST["username"]=="" ||
-                $_POST["lastname"]=="" ||
-                $_POST["gender"]=="" ||
-                $_POST["email"]=="" ||
-                $_POST["phone"]=="" ||
-                $_POST["address"]==""  ||
-                $_POST["document_type"]==""  ||
-                $_POST["password"]==""  ||
-                $_POST["confirm_password"]=="" )
-            {
-                echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
-                <a href='registrarse.html'> Registrarse </a>
-                <a href='index.html'> Ir a la Página Principal </a>
-                ";
-            }
+        ParametrosDisponibles(array('document_type','document','username','lastname','id_roll','gender','email','phone','address','password', 'confirm_password'));
+        if($_POST["document"]=="" ||
+            $_POST["id_roll"]=="" ||
+            $_POST["username"]=="" ||
+            $_POST["lastname"]=="" ||
+            $_POST["gender"]=="" ||
+            $_POST["email"]=="" ||
+            $_POST["phone"]=="" ||
+            $_POST["address"]==""||
+            $_POST["document_type"]==""||
+            $_POST["password"]==""  ||
+            $_POST["confirm_password"]=="" )
+        {
+            echo " <h3> Hay Datos Vaciós Por Favor Llenarlos </h3>
+                 <a href='registrarse.html'> Registrarse </a>
+                                 <a href='index.html'> Ir a la Página Principal </a>
+           ";
+        }
 
             else if ($_POST["password"] != $_POST["confirm_password"]  ){
 
@@ -84,6 +83,58 @@ $respuesta = array();
         }
 
     break;
+        case 'createproducto':
+        ParametrosDisponibles(array('id_prd','prd_name','descrip','price','stock','id_category','id_subca'));
+        $id_prd =  $_POST["id_prd"];
+        $prd_name =  $_POST["prd_name"];
+        $descrip= $_POST["descrip"];
+        $price=$_POST["price"];
+        $stock= $_POST["stock"];
+        $id_category=$_POST["id_category"];
+        switch ($id_category) {
+            case "Chaquetas" :    $ID_categoria = "CAT01";
+                break;
+            case"Pantalones" :    $ID_categoria = "CAT02";
+                break;
+            case "Formal" :    $ID_categoria = "CAT03";
+                break;
+            case "Informal" :    $ID_categoria = "CAT04";
+                break;
+            case "Blusa" :    $ID_categoria = "CAT05";
+                break;
+            default: "";
+                break;
+        }
+        $id_subca=$_POST["id_subca"];
+        switch ($id_subca){
+            case"Unisex":$id_subca = "CLAS01";
+                break;
+            case "Mujeres":$id_subca = "CLAS02";
+                break;
+            case "Niños":$id_subca = "CLAS03";
+                break;
+            case "Bebes":$id_subca = "CLAS04";
+                break;
+            case "Niñas":$id_subca = "CLAS05";
+                break;
+            case "Hombres":$id_subca = "CLAS06";
+                break;
+            default: "";
+                break;
+        }
+
+        $db = new Controllerjson();
+        $result = $db->createProductoController($id_prd,$prd_name,$descrip,$price,$stock,$id_category,$id_subca);
+        if(!$result){
+            $respuesta['error'] = false;
+            $respuesta['mensaje'] = 'Producto Agregado';
+            header("location:../administrador/crud/administraproducto.php");
+        }else{
+            $respuesta['error'] = true;
+            $respuesta['mensaje'] = 'Producto No Agregado';
+            header("location:../administrador/crud/administraproducto.php");
+        }
+        break;
         /*
     case 'readusuario':
         ParametrosDisponibles(array('email'));
@@ -219,96 +270,7 @@ $_POST["confirm_password"]== null ))
             $respuesta['mensaje'] = 'Usuario no Existe';
         }
     break;
-    case 'createproducto':
-    ParametrosDisponibles(array('ID_Producto', 'Nombre_Producto','Talla', 'Color', 'Material', 'Valor', 'Descripcion', 'ID_categoria', 'ID_clasificacion'));
 
-    $ID_Producto =  $_POST["ID_Producto"];
-    $Nombre_Producto =  $_POST["Nombre_Producto"];
-
-    $Imagen_Producto= $_FILES["Imagen_Producto"]["name"];
-
-    if(isset($Imagen_Producto) && $Imagen_Producto= $_FILES["Imagen_Producto"]["name"] != ""){
-        $Imagen_Producto= $_FILES["Imagen_Producto"]["name"];
-      $ruta= $_FILES["Imagen_Producto"]["tmp_name"];
-      $destino="../administrador/fotos/".$Imagen_Producto;
-
-      copy($ruta,$destino);
-
-      }
-      else {
-      $destino = $Nombre_Producto;
-      }
-
-    $Talla=$_POST["Talla"];
-    $Color= $_POST["Color"];
-    $Material=$_POST["Material"];
-    $Valor=$_POST["Valor"];
-    $Descripcion=$_POST["Descripcion"];
-    $ID_categoria= $_POST["ID_categoria"];
-
-    switch ($ID_categoria) {
-
-    case "Chaquetas" :    $ID_categoria = "CAT01";
-    break;
-
-    case"Pantalones" :    $ID_categoria = "CAT02";
-    break;
-
-    case "Formal" :    $ID_categoria = "CAT03";
-    break;
-
-    case "Informal" :    $ID_categoria = "CAT04";
-    break;
-
-    case "Blusa" :    $ID_categoria = "CAT05";
-    break;
-
-    default: "";
-    break;
-
-    }
-
-    $ID_clasificacion= $_POST['ID_clasificacion'];
-    switch ($ID_clasificacion) {
-
-      case"Unisex" :    $ID_clasificacion = "CLAS01";
-      break;
-
-      case "Mujeres" :    $ID_clasificacion = "CLAS02";
-      break;
-
-      case "Niños" :    $ID_clasificacion = "CLAS03";
-      break;
-
-      case "Bebes" :    $ID_clasificacion = "CLAS04";
-      break;
-
-      case "Niñas" :    $ID_clasificacion = "CLAS05";
-      break;
-
-      case "Hombres" :    $ID_clasificacion = "CLAS06";
-      break;
-
-
-      default: "";
-      break;
-      }
-
-      $db = new Controllerjson();
-      $result = $db->createProductoController($ID_Producto,$Nombre_Producto,$destino,$Imagen_Producto,$Talla,$Color,$Material,$Valor,$Descripcion,$ID_categoria,$ID_clasificacion);
-
-
-    if(!$result){
-        $respuesta['error'] = false;
-        $respuesta['mensaje'] = 'Producto Agregado';
-        header("location:../administrador/crud/administraproducto.php");
-    }else{
-        $respuesta['error'] = true;
-        $respuesta['mensaje'] = 'Producto No Agregado';
-     header("location:../administrador/crud/administraproducto.php");
-    }
-
-    break;
     case 'updateproducto':
     ParametrosDisponibles(array('ID_Producto', 'Nombre_Producto','Talla', 'Color', 'Material', 'Valor', 'Descripcion', 'ID_categoria', 'ID_clasificacion'));
 
